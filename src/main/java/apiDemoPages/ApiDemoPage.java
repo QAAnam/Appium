@@ -55,6 +55,7 @@ public class ApiDemoPage extends BaseLibrary
 			{
 				Utility.pressMobileElement(driver, mobileElement);;
 				Utility.PrintText("pressOnElement3D_Transition");
+				break;
 			}
 			else
 			{
@@ -62,5 +63,54 @@ public class ApiDemoPage extends BaseLibrary
 			}
 		}
 	}
+	public void ScrollAndClickOnElementPopUpMenu()
+	{
+		try 
+		{
+			driver.navigate().back();
+			Thread.sleep(3000);
+			Utility.ScrollAndMatcher(driver, "android.widget.TextView", "Popup Menu");
+		} 
+		catch (Exception e) 
+		{
+			Utility.PrintText("Popup Menu is not found");
+		}
+		
+	}
+	public void scrollUpDownAndClick()
+	{
+		try 
+		{
+			driver.navigate().back();
+			Thread.sleep(3000);
+			Utility.ScrollAndMatcher(driver, "android.widget.TextView", "Buttons");
+		} 
+		catch (Exception e) 
+		{
+			Utility.PrintText("Auto Complete is not found");
+		}
+	}
+	public void clickonOnOffButton()
+	{
+		try 
+		{
+			MobileElement ele = driver.findElementByAccessibilityId("Toggle");
+			if (ele.getText().equalsIgnoreCase("off")) 
+			{
+				ele.click();
+				Utility.PrintText("system is "+ele.getText());
+			}
+			else
+			{
+				Utility.PrintText("system is already "+ele.getText());
+			}
+				
+		} 
+		catch (Exception e) 
+		{
+			Utility.PrintText("Error in clickonOnOffButton");
+		}
+	}
+	
 
 }
