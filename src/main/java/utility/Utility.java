@@ -1,15 +1,20 @@
 package utility;
 
+import java.time.Duration;
 import java.util.List;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidTouchAction;
+import io.appium.java_client.pagefactory.bys.builder.AppiumByBuilder;
+import io.appium.java_client.touch.LongPressOptions;
 import io.appium.java_client.touch.TapOptions;
 import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
@@ -89,9 +94,9 @@ public class Utility
 	}
 	public static void ScrollAndMatcher(AppiumDriver<MobileElement> driver,String classname, String text)
 	{
-		for (int i = 0; i < 12; i++)
+		for (int i = 0; i < 8; i++)
 		{
-			if (i<6)
+			if (i<4)
 			{
 				List<MobileElement> mobileelements = driver.findElementsByClassName(classname);
 				for(MobileElement mobileelement : mobileelements)
@@ -110,7 +115,7 @@ public class Utility
 				}
 				scrollByCordinates(driver);
 			}
-			else if (i<12 & i>5)
+			else if (i<8 & i>=4)
 			{
 				List<MobileElement> mobileelements = driver.findElementsByClassName(classname);
 				for(MobileElement mobileelement : mobileelements)
@@ -133,6 +138,75 @@ public class Utility
 		}
 		
 		
+	}
+	public static void longPress(AppiumDriver<MobileElement> driver, MobileElement element)
+	{
+		AndroidTouchAction touch = new AndroidTouchAction(driver);
+		LongPressOptions longPress = new LongPressOptions();
+		longPress.withDuration(Duration.ofSeconds(5)).withElement(ElementOption.element(element));
+		touch.longPress(longPress).release().perform();
+		
+		
+	}
+	public static MobileElement SearchWebElementWithClassName(AppiumDriver<MobileElement> driver, String ClassName, String TextvalueofClass)
+	{
+		MobileElement Ele = null;
+		try 
+		{
+			
+			List<MobileElement> Ele1 = driver.findElementsByClassName(ClassName);
+			for(MobileElement mobileele:Ele1)
+			{
+				if(mobileele.getText().equalsIgnoreCase(TextvalueofClass))
+				{
+					Ele=mobileele;
+					break;
+				}
+			}
+			if(Ele.toString().equalsIgnoreCase("null"))
+			{
+				throw new NoSuchElementException("such element found");
+			}
+		} 
+		catch (Exception e)
+		{
+			Utility.PrintText("Issue in find element");
+			e.printStackTrace();
+		}
+		return Ele;
+	}
+	public static MobileElement SearchWebElementWithClassName1(AppiumDriver<MobileElement> driver, String ClassName, String TextvalueofClass)
+	{
+		MobileElement Ele = null;
+		try 
+		{
+			String A = "\""+ClassName+"\"";		
+			List<MobileElement> Ele1 = driver.findElementsByClassName(A);
+			for(MobileElement mobileele:Ele1)
+			{
+				if(mobileele.getText().equalsIgnoreCase(TextvalueofClass))
+				{
+					Ele=mobileele;
+					break;
+				}
+			}
+			if(Ele.toString().equalsIgnoreCase("null"))
+			{
+				throw new NoSuchElementException("such element found");
+			}
+		} 
+		catch (Exception e)
+		{
+			Utility.PrintText("Issue in find element");
+			e.printStackTrace();
+		}
+		return Ele;
+	}
+	public static void scrollUpDirectelyWithElement(AppiumDriver<MobileElement> driver, String Text)
+	{
+//		"new UiScrollable(new UiSelector()).scrollIntoView("+"new UiSelector().description(\""+text+"\"));"
+		String Text1 = "\""+Text+"\"";
+		driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("+"new UiSelector().description("+Text1+"));"));
 	}
 	
 }

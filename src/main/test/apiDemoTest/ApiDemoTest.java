@@ -1,6 +1,4 @@
 package apiDemoTest;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import apiDemoPages.ApiDemoPage;
 
@@ -66,6 +64,56 @@ public class ApiDemoTest extends ApiDemoPage
 		ob.clickonOnOffButton();
 		Thread.sleep(3000);
 	}
-		
+	@Test(priority = 8)
+	public void longPresspeopleTest() throws InterruptedException
+	{
+		ob.longPresspeople();
+	}
+	@Test(priority = 9)
+	public void runInBackgroundTest()
+	{
+		ob.runInBackground();
+	}
+	@Test(priority = 10)
+	public void terminateAppTest() throws InterruptedException
+	{
+		ob.terminateApp();
+	}
+	@Test(priority = 11)
+	public void activateAppTest() throws InterruptedException
+	{
+		ob.activateApp();
+	}
+	@Test(priority = 12)
+	public void qureyAppstateTest() throws InterruptedException
+	{
+		ob.qureyAppstate();;
+	}
+	@Test(priority = 12)
+	public void removeappTest() throws InterruptedException
+	{
+		//ob.removeapp();
+	}
+	@Test(priority = 14)
+	public void qureyAppstate1Test() throws InterruptedException
+	{
+		ob.qureyAppstate();
+	}
+	@Test(priority = 15)
+	public void activateApp1Test() throws InterruptedException
+	{
+		ob.activateApp1();
+	}
+	@Test(priority = 16)
+	public void scrollUpDirectelyWithElementTest() throws InterruptedException
+	{
+		ob.scrollUpDirectelyWithElement();
+	}
+	@Test(priority = 17)
+	public void terminateAppTest2() throws InterruptedException
+	{
+		ob.terminateApp();
+	}
+	
 
 }

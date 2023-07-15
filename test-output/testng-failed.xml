@@ -5,10 +5,8 @@
     <classes>
       <class name="apiDemoTest.ApiDemoTest">
         <methods>
-          <include name="pressOnElement3D_TransitionTest"/>
-          <include name="clickOnElementAnimationTest"/>
+          <include name="longPresspeopleTest"/>
           <include name="initializeAppDriver"/>
-          <include name="tapOnViewsTest"/>
         </methods>
       </class> <!-- apiDemoTest.ApiDemoTest -->
     </classes>

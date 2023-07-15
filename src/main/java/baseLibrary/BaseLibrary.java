@@ -8,7 +8,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.StartsActivity;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import utility.Utility;
@@ -21,18 +23,18 @@ public class BaseLibrary
 	{
 		DesiredCapabilities dc = new DesiredCapabilities();
 		dc.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir")+"/ApiDemos-debug.apk");
-		dc.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, "io.appium.android.apis.ApiDemos");
-		dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "io.appium.android.apis");
+//		dc.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, "io.appium.android.apis.ApiDemos");
+//		dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "io.appium.android.apis");
 		dc.setCapability(AndroidMobileCapabilityType.AUTO_GRANT_PERMISSIONS, true);
 		dc.setCapability(MobileCapabilityType.DEVICE_NAME, "emulator-5554");
 		dc.setCapability(MobileCapabilityType.PLATFORM_NAME, "android");
 		dc.setCapability(MobileCapabilityType.NO_RESET, true);
 		dc.setCapability(MobileCapabilityType.FULL_RESET, false);
-		dc.setCapability(AndroidMobileCapabilityType.SKIP_DEVICE_INITIALIZATION, true);
-		dc.setCapability("skipServerInstallation", "true");
+//		dc.setCapability(AndroidMobileCapabilityType.SKIP_DEVICE_INITIALIZATION, true);
+//		dc.setCapability("skipServerInstallation", "true");
 		return dc;
 	}
-	public AppiumDriver<MobileElement> launchAppDriver()
+	public AppiumDriver<MobileElement> launchAppDriver() throws InterruptedException
 	{
 		ob = new BaseLibrary();
 		driver=ob.initializeDriver();
@@ -61,12 +63,25 @@ public class BaseLibrary
 		
 		
 	}
-	public AppiumDriver<MobileElement> initializeDriver()
+	public AppiumDriver<MobileElement> initializeDriver() throws InterruptedException
 	{
 		ob = new BaseLibrary();
 		try
 		{
+			
 			driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub/"),ob.desirecaps());
+			boolean IsAppInstalled = driver.isAppInstalled("io.appium.android.apis");
+			if(IsAppInstalled)
+			{
+				((StartsActivity) driver).startActivity(new Activity("io.appium.android.apis","io.appium.android.apis.ApiDemos"));
+				Thread.sleep(5000);
+			}
+			else if(!IsAppInstalled)
+			{
+				driver.installApp(System.getProperty("user.dir")+"/Appium/ApiDemos-debug.apk");
+				((StartsActivity) driver).startActivity(new Activity("io.appium.android.apis","io.appium.android.apis.ApiDemos"));
+			}
+			
 		} 
 		catch (MalformedURLException e)
 		{
