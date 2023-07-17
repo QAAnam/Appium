@@ -3,7 +3,9 @@ package utility;
 import java.time.Duration;
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -207,6 +209,29 @@ public class Utility
 //		"new UiScrollable(new UiSelector()).scrollIntoView("+"new UiSelector().description(\""+text+"\"));"
 		String Text1 = "\""+Text+"\"";
 		driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("+"new UiSelector().description("+Text1+"));"));
+	}
+	public static WebElement findWebElementHavingText(WebDriver driver, String className, String text)
+	{
+		WebElement ele =null;
+		List<WebElement> eles = driver.findElements(By.className(className));
+		for(WebElement element: eles)
+		{
+			if(element.getText().contains(text))
+			{
+					ele=element;
+			}
+			else
+			{
+					Utility.PrintText(text+" not found");
+			}
+		}
+		return ele;
+		
+	}
+	public static void swipetoelement(AppiumDriver<MobileElement> driver, String Text)
+	{
+		driver.findElement(MobileBy
+				.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).index(0)).scrollIntoView(new UiSelector().text(\""+Text+"\"))"));
 	}
 	
 }

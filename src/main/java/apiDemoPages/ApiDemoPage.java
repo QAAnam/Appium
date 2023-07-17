@@ -80,7 +80,11 @@ public class ApiDemoPage extends BaseLibrary
 		{
 			driver.navigate().back();
 			Thread.sleep(3000);
-			Utility.ScrollAndMatcher(driver, "android.widget.TextView", "Buttons");
+			Utility.swipetoelement(driver, "Buttons");
+			Thread.sleep(3000);
+			driver.findElementByAccessibilityId("Buttons").click();;
+			Thread.sleep(3000);
+			//Utility.ScrollAndMatcher(driver, "android.widget.TextView", "Buttons");
 		} 
 		catch (Exception e) 
 		{
